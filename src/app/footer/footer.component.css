@@ -1,0 +1,40 @@
+.footer {
+    background-color: #3f51b5;
+    color: white;
+    padding: 20px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .footer-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .social-media, .contact-info, .terms {
+    text-align: center;
+  }
+
+  .social-media a {
+    margin: 0 30px;
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+  }
+
+  .terms button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: underline;
+  }
+
+  .terms button:hover {
+    text-decoration: none;
+  }

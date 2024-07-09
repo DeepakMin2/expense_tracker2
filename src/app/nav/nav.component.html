@@ -1,0 +1,19 @@
+<mat-toolbar color = "primary">
+    <button mat-icon-button [matMenuTriggerFor]="menu" *ngIf="isLoggedIn()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/addExpense" >Add Expenses</button>
+        <button mat-menu-item routerLink="/showExpense" >Show Expenses</button>
+        <button mat-menu-item routerLink="/statements" >Statements</button>
+        <button mat-menu-item routerLink="/profile" >Profile</button>
+    </mat-menu>
+    <span>Expense Tracker</span>
+    <span class = "spacer"></span>
+    <button mat-button routerLink="/login" *ngIf ="!isLoggedIn()">Login</button>
+    <button mat-button *ngIf ="!isLoggedIn()" routerLink="/signup" >Sign up</button>
+        <button mat-button *ngIf = "isLoggedIn()" routerLink="/addExpense" >Add Expenses</button>
+        <button mat-button *ngIf = "isLoggedIn()" routerLink="/showExpense" >Show Expenses</button>
+        <button mat-button *ngIf = "isLoggedIn()"routerLink="/statements" >Statements</button>
+        <button mat-button *ngIf = "isLoggedIn()" routerLink="/profile" >Profile</button>
+</mat-toolbar>

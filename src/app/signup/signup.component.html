@@ -1,0 +1,41 @@
+<div class = "signup-container">
+    <mat-card>
+        <h2>Sign Up</h2>
+        <form [formGroup]="signupForm" (ngSubmit) = "onSubmit()">
+            <mat-form-field appearance = "fill">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName = "firstName" type="text" >
+                <mat-error *ngIf="signupForm.get('firstName')!.hasError('required')">First Name is required</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance = "fill">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName = "lastName" type="text" >
+                <mat-error *ngIf="signupForm.get('lastName')!.hasError('required')">Last Name is required</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance = "fill">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName = "email" type="email" >
+                <mat-error *ngIf="signupForm.get('email')!.hasError('required')">Email is required</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance = "fill">
+                <mat-label>Password</mat-label>
+                <input matInput formControlName = "password" type="password">
+                <mat-error *ngIf="signupForm.get('password')!.hasError('required')">Password is required</mat-error>
+                <mat-error *ngIf="signupForm.get('password')!.hasError('minlength')">Password must be at least 8 characters</mat-error>
+                <mat-error *ngIf="signupForm.get('password')!.hasError('strongPassword')">
+                Password must contain at least one uppercase letter\none lowercase letter, \none number, and \none special character
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance = "fill">
+                <mat-label>Repeat Password</mat-label>
+                <input matInput formControlName = "password2" type="password" >
+                <mat-error *ngIf="signupForm.hasError('passwordMismatch')">Passwords did not match</mat-error>
+                <mat-error *ngIf="signupForm.get('password2')!.hasError('required')">Repeat Password is required</mat-error>
+            </mat-form-field>
+           <br>
+            <div class = "button-container">
+                <button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.valid">Sign Up</button>
+            </div>
+        </form>
+    </mat-card>
+</div>

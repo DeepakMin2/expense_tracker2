@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 16px;
+}
+
+.addExpenseCard, .addCategoryCard, .recentExpenses {
+  flex: 1 1 calc(50% - 16px);
+  box-sizing: border-box;
+}
+
+mat-card {
+  padding: 16px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+button {
+  display: flex;
+  display: block;
+  margin-top: 16px;
+}
+
+mat-chip-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.remove-icon {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+
+.remove-icon mat-icon{
+
+  font-size: 20px;
+}

@@ -1,0 +1,47 @@
+.signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  mat-card {
+    width: 450px;
+    padding: 20px;
+  }
+
+  mat-card h2 {
+    text-align: center;
+    text-shadow: papayawhip;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+  
+  button[mat-raised-button] {
+    background-color: #3f51b5; /* Primary color */
+    color: #fff;
+    font-weight: normal;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    display: inline-block; /* Ensure button is treated as a block element */
+  }
+  
+  button[mat-raised-button]:hover {
+    background-color: #303f9f; /* Darker shade of primary color */
+  }
+  
+  button[mat-raised-button].mat-button-disabled {
+    background-color: grey !important;
+    color: white !important;
+  }

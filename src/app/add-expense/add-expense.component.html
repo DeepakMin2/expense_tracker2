@@ -1,0 +1,106 @@
+<div class="container">
+    <mat-card class="addExpenseCard">
+        <mat-card-title>Add Expense</mat-card-title>
+        <mat-card-content>
+            <form [formGroup]="addExpenseForm" (ngSubmit)="onAddExpense()">
+                <div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Name</mat-label>
+                        <input matInput type="text" formControlName="expenseName">
+                        <mat-error *ngIf="addExpenseForm.get('expenseName')!.hasError('required')">Required</mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance = "fill">
+                        <mat-label>Category</mat-label>
+                        <mat-select formControlName="category">
+                            <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="addExpenseForm.get('category')!.hasError('required')">Required</mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Amount</mat-label>
+                        <input matInput formControlName="amount">
+                        <mat-error *ngIf="addExpenseForm.get('amount')!.hasError('required')">Required</mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance = "fill">
+                        <mat-label>Date</mat-label>
+                        <input matInput formControlName="date" [matDatepicker]="picker">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="addExpenseForm.get('date')!.hasError('required')">Required</mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Mode of Payment</mat-label>
+                        <input matInput type="text" formControlName="payment">
+                        <mat-error *ngIf="addExpenseForm.get('payment')!.hasError('required')">Required</mat-error>
+                    </mat-form-field>
+                </div>
+                <div><button mat-raised-button color="primary" type="submit">Add Expense</button></div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+    <mat-card class="addCategoryCard">
+        <mat-card-title>Add Categories</mat-card-title>
+        <mat-card-content>
+            <mat-form-field appearance="outline" class="example-form-field">
+              <mat-label>Available Expense Categories</mat-label>
+              <mat-chip-grid #chipGrid aria-label="Enter New Category">
+                <mat-chip-row *ngFor="let category of categories" (removed)="removeCategory(category)">
+                  {{ category }}<button matChipRemove class="remove-icon">
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip-row>
+              </mat-chip-grid>
+              <input
+                placeholder="New Categories..."
+                [matChipInputFor]="chipGrid"
+                (matChipInputTokenEnd)="addCategory($event)"
+                style="border: 2px solid black"
+              />
+            </mat-form-field>
+          </mat-card-content>
+    </mat-card>
+</div>
+<div class="container">
+    <mat-card class="recentExpenses">
+        <mat-card-title>Recent Expenses</mat-card-title>
+        <mat-card-content>
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef>Name</th>
+                    <td mat-cell *matCellDeF="let expense">{{expense.name}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef>Date</th>
+                    <td mat-cell *matCellDeF="let expense">{{expense.date}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="amount">
+                    <th mat-header-cell *matHeaderCellDef>Amount</th>
+                    <td mat-cell *matCellDeF="let expense">{{expense.amount}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="category">
+                    <th mat-header-cell *matHeaderCellDef>Category</th>
+                    <td mat-cell *matCellDeF="let expense">{{expense.category}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="payment">
+                    <th mat-header-cell *matHeaderCellDef>Mode of Payment</th>
+                    <td mat-cell *matCellDeF="let expense">{{expense.payment}}</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="columnHeadings"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnHeadings;"></tr>
+            </table>
+        </mat-card-content>
+    </mat-card>
+</div>
