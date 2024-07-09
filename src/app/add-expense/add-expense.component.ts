@@ -6,24 +6,19 @@ import { MatTableDataSource } from '@angular/material/table';
 
 export interface Expense{
   name: string,
-  amount: string,
+  amount: number,
   category: string,
-  date: string,
+  date: Date,
   payment: string
 }
 
-var expenses: Expense[] = [{
-  name: 'Test',
-  date: '25/01/2021',
-  amount: '00',
-  category: 'something',
-  payment: 'Cash'
-}, {name: 'Test',
-date: '25/01/2021',
-amount: '00',
-category: 'something',
-payment: 'Cash'
-}];
+
+
+const EXPENSES_DATA: Expense[] = [
+  {name: 'Test1', amount: 0, category: 'test category', date: new Date (2023,12,25), payment: 'test pay'},
+  {name: 'Test1', amount: 0, category: 'test category', date: new Date (2024,7,9), payment: 'test pay'},
+];
+
 
 @Component({
   selector: 'app-add-expense',
@@ -34,8 +29,8 @@ export class AddExpenseComponent {
 
   categories = ['Medical', 'Education', 'Taxes', 'Entertainment'];
 
-  columnHeadings: string[] = ['name', 'date', 'amount','category', 'payment'];
-  dataSource = expenses;
+  displayedColumns: string[] = ['name', 'amount', 'category', 'date', 'payment'];
+  dataSource2 = new MatTableDataSource<Expense>(EXPENSES_DATA);
   
 
   addExpenseForm: FormGroup;
@@ -52,10 +47,18 @@ export class AddExpenseComponent {
 
   onAddExpense(){
     if(this.addExpenseForm.valid){
-      const newExpense: Expense = this.addExpenseForm.value;
-      expenses = [...expenses,newExpense];
-      this.dataSource = expenses;
-      console.log(this.addExpenseForm.value)
+      const newExpense: Expense = {
+        name: this.addExpenseForm.value.expenseName,
+        amount: this.addExpenseForm.value.amount,
+        category: this.addExpenseForm.value.category,
+        date: this.addExpenseForm.value.date,
+        payment: this.addExpenseForm.value.payment,
+      }
+      this.dataSource2.data = [...this.dataSource2.data, newExpense]
+
+      console.log(newExpense)
+
+
     }
     
     

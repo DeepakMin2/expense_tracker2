@@ -5,7 +5,7 @@
   margin: 16px;
 }
 
-.addExpenseCard, .addCategoryCard, .recentExpenses {
+.addExpenseCard, .addCategoryCard, .expenseTableCard {
   flex: 1 1 calc(50% - 16px);
   box-sizing: border-box;
 }
