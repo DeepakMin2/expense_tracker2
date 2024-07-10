@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -15,7 +16,7 @@ export interface Expense{
 
 
 const EXPENSES_DATA: Expense[] = [
-  {name: 'Test1', amount: 0, category: 'test category', date: new Date (2023,12,25), payment: 'test pay'},
+  {name: 'Test1', amount: 0, category: 'test category', date: new Date (2024,7,9), payment: 'test pay'},
   {name: 'Test1', amount: 0, category: 'test category', date: new Date (2024,7,9), payment: 'test pay'},
 ];
 
@@ -23,9 +24,11 @@ const EXPENSES_DATA: Expense[] = [
 @Component({
   selector: 'app-add-expense',
   templateUrl: './add-expense.component.html',
-  styleUrls: ['./add-expense.component.css']
+  styleUrls: ['./add-expense.component.css'],
+  providers: [DatePipe]
 })
 export class AddExpenseComponent {
+ 
 
   categories = ['Medical', 'Education', 'Taxes', 'Entertainment'];
 
@@ -35,7 +38,7 @@ export class AddExpenseComponent {
 
   addExpenseForm: FormGroup;
 
-  constructor(){
+  constructor( private datePipe: DatePipe){
     this.addExpenseForm = new FormGroup({
       expenseName: new FormControl('',[Validators.required]),
       category: new FormControl('',[Validators.required]),
@@ -54,7 +57,7 @@ export class AddExpenseComponent {
         date: this.addExpenseForm.value.date,
         payment: this.addExpenseForm.value.payment,
       }
-      this.dataSource2.data = [...this.dataSource2.data, newExpense]
+      this.dataSource2.data = [...this.dataSource2.data.slice(-4), newExpense]
 
       console.log(newExpense)
 
@@ -80,5 +83,9 @@ export class AddExpenseComponent {
     if(index>=0){
       this.categories.splice(index,1);
     }
+  }
+
+  formatDate(date: Date): string {
+    return this.datePipe.transform(date,'MM/dd/yyyy') || '';
   }
 }

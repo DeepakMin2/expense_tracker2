@@ -24,6 +24,13 @@ button {
   margin-top: 16px;
 }
 
+.show-expense-button{
+  position: relative;
+  align-self: flex-end;
+  margin-top: 16px;
+  margin-right: 16px;
+}
+
 mat-chip-row {
   display: flex;
   align-items: center;
