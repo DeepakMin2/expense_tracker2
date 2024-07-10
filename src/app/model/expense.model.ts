@@ -1,7 +1,7 @@
 export interface Expense{
     name: string,
-    amount: string,
+    amount: number,
     category: string,
     date: Date,
     payment: string
-}
+  }

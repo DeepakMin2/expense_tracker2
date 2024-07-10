@@ -3,23 +3,8 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatTableDataSource } from '@angular/material/table';
-
-
-export interface Expense{
-  name: string,
-  amount: number,
-  category: string,
-  date: Date,
-  payment: string
-}
-
-
-
-const EXPENSES_DATA: Expense[] = [
-  {name: 'Test1', amount: 0, category: 'test category', date: new Date (2024,7,9), payment: 'test pay'},
-  {name: 'Test1', amount: 0, category: 'test category', date: new Date (2024,7,9), payment: 'test pay'},
-];
-
+import { Expense } from '../model/expense.model';
+import { ExpenseService } from '../services/expense.service';
 
 @Component({
   selector: 'app-add-expense',
@@ -29,23 +14,28 @@ const EXPENSES_DATA: Expense[] = [
 })
 export class AddExpenseComponent {
  
-
   categories = ['Medical', 'Education', 'Taxes', 'Entertainment'];
 
   displayedColumns: string[] = ['name', 'amount', 'category', 'date', 'payment'];
-  dataSource2 = new MatTableDataSource<Expense>(EXPENSES_DATA);
+  dataSource2 = new MatTableDataSource<Expense>([]);
   
 
   addExpenseForm: FormGroup;
 
-  constructor( private datePipe: DatePipe){
+  constructor( private datePipe: DatePipe, private expenseService: ExpenseService){
+    this.dataSource2.data = expenseService.getExpenses().reverse()
+    
     this.addExpenseForm = new FormGroup({
       expenseName: new FormControl('',[Validators.required]),
       category: new FormControl('',[Validators.required]),
       amount: new FormControl('',[Validators.required]),
       date: new FormControl('',[Validators.required]),
       payment: new FormControl('',[Validators.required])
-    })
+    });
+
+    this.expenseService.expenses$.subscribe(expenses =>{
+      this.dataSource2.data = expenses.slice(-5).reverse();
+    });
   }
 
   onAddExpense(){
@@ -57,9 +47,7 @@ export class AddExpenseComponent {
         date: this.addExpenseForm.value.date,
         payment: this.addExpenseForm.value.payment,
       }
-      this.dataSource2.data = [...this.dataSource2.data.slice(-4), newExpense]
-
-      console.log(newExpense)
+      this.expenseService.addExpense(newExpense);
 
 
     }
