@@ -8,7 +8,7 @@
         <button mat-menu-item routerLink="/statements" >Statements</button>
         <button mat-menu-item routerLink="/profile" >Profile</button>
     </mat-menu>
-    <span>Expense Tracker</span>
+    <span><a mat-button class="title" routerLink="/home">Expense Tracker</a></span>
     <span class = "spacer"></span>
     <button mat-button routerLink="/login" *ngIf ="!isLoggedIn()">Login</button>
     <button mat-button *ngIf ="!isLoggedIn()" routerLink="/signup" >Sign up</button>
