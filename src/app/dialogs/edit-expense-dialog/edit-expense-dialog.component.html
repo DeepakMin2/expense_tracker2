@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>Edit Expense</h1>
+<div mat-dialog-content>
+    <form [formGroup]="editExpenseForm">
+        <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Amount</mat-label>
+            <input matInput formControlName="amount">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Category</mat-label>
+            <input matInput formControlName="category">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Payment Method</mat-label>
+            <input matInput formControlName="payment">
+        </mat-form-field>
+    </form>
+
+    <div mat-dialog-actions>
+        <button mat-raised-button (click)="onCancel()">Cancel</button>
+        <button mat-raised-button (click)="onSave()" color="primary" cdkFocusInitial>Save</button>
+    </div>
+</div>
