@@ -1,0 +1,43 @@
+.container {
+    margin: 20px; /* Margin around the table */
+    padding: 20px; /* Padding inside the table container */
+    border: 2px solid #ccc; /* Border around the table container */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for a raised effect */
+    background-color: #f9f9f9; /* Light background color */
+  }
+  
+  table {
+    width: auto; /* Full width */
+    border-collapse: collapse; /* Collapse borders */
+  }
+
+  .mat-header-cell, .mat-cell {
+    padding: 8px;
+  }
+  
+  th, td {
+    padding: 12px; /* Padding inside cells */
+    text-align: left; /* Left-align text */
+    border-bottom: 1px solid #ddd; /* Bottom border for rows */
+  }
+  
+  th {
+    background-color: #f1f1f1; /* Light grey background for header */
+    font-size: medium;
+  }
+  
+  tr:hover {
+    background-color: #f5f5f5; /* Light grey background on hover */
+  }
+
+  .actions-column {
+    width: 1%; /* Ensure the actions column only takes up as much space as needed */
+    white-space: nowrap; /* Prevent line breaks */
+  }
+  
+  .mat-icon {
+    align-items: flex-end;
+    font-size: 18px;
+  }
+

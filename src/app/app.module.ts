@@ -30,6 +30,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { EditExpenseDialogComponent } from './dialogs/edit-expense-dialog/edit-expense-dialog.component';
+import { DeleteExpenseDialogComponent } from './dialogs/delete-expense-dialog/delete-expense-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { DialogComponent } from './dialog/dialog.component';
     HomeComponent,
     FooterComponent,
     DialogComponent,
+    EditExpenseDialogComponent,
+    DeleteExpenseDialogComponent,
   ],
   imports: [
     BrowserModule,

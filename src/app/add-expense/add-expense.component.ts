@@ -23,7 +23,8 @@ export class AddExpenseComponent {
   addExpenseForm: FormGroup;
 
   constructor( private datePipe: DatePipe, private expenseService: ExpenseService){
-    this.dataSource2.data = expenseService.getExpenses().reverse()
+    this.dataSource2.data = expenseService.getExpenses().slice(-5);
+    console.log('initially loaded array ');
     
     this.addExpenseForm = new FormGroup({
       expenseName: new FormControl('',[Validators.required]),
@@ -34,7 +35,8 @@ export class AddExpenseComponent {
     });
 
     this.expenseService.expenses$.subscribe(expenses =>{
-      this.dataSource2.data = expenses.slice(-5).reverse();
+      this.dataSource2.data = expenses.slice(-5);
+      console.log('subscribe is called to load array');
     });
   }
 
