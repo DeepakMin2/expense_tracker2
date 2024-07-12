@@ -5,6 +5,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 import { MatTableDataSource } from '@angular/material/table';
 import { Expense } from '../model/expense.model';
 import { ExpenseService } from '../services/expense.service';
+import { CategoryService } from '../services/category-service.service';
 
 @Component({
   selector: 'app-add-expense',
@@ -14,7 +15,7 @@ import { ExpenseService } from '../services/expense.service';
 })
 export class AddExpenseComponent {
  
-  categories = ['Medical', 'Education', 'Taxes', 'Entertainment'];
+  categories:string[] = [];
 
   displayedColumns: string[] = ['name', 'amount', 'category', 'date', 'payment'];
   dataSource2 = new MatTableDataSource<Expense>([]);
@@ -22,9 +23,11 @@ export class AddExpenseComponent {
 
   addExpenseForm: FormGroup;
 
-  constructor( private datePipe: DatePipe, private expenseService: ExpenseService){
+  constructor( private datePipe: DatePipe, 
+    private expenseService: ExpenseService,
+    private categoryService: CategoryService){
     this.dataSource2.data = expenseService.getExpenses().slice(-5);
-    console.log('initially loaded array ');
+    this.categories = categoryService.getCategories();
     
     this.addExpenseForm = new FormGroup({
       expenseName: new FormControl('',[Validators.required]),
@@ -36,7 +39,9 @@ export class AddExpenseComponent {
 
     this.expenseService.expenses$.subscribe(expenses =>{
       this.dataSource2.data = expenses.slice(-5);
-      console.log('subscribe is called to load array');
+    });
+    this.categoryService.category$.subscribe(categories=>{
+      this.categories = categories;
     });
   }
 
@@ -61,18 +66,14 @@ export class AddExpenseComponent {
     const input =  event.chipInput.inputElement;
     const value = event.value.trim();
 
-    this.categories.push(value)
+    this.categoryService.addCategory(value);
     if(input){
       input.value = '';
     }
   }
 
   removeCategory(category: string): void {
-    const index = this.categories.indexOf(category);
-
-    if(index>=0){
-      this.categories.splice(index,1);
-    }
+  this.categoryService.removeCategory(category);
   }
 
   formatDate(date: Date): string {
