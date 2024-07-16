@@ -1,0 +1,19 @@
+.months-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .months-container button {
+    flex: 1 0 calc(33.333% - 10px);
+    margin-bottom: 10px;
+  }
+
+  .download-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+  }
+  
+  
