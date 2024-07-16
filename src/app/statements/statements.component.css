@@ -16,4 +16,22 @@
     margin-bottom: 10px;
   }
   
+  mat-panel-description {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+  }
+
+  mat-expansion-panel-content {
+    width: 100%;
+  }
+  
+  mat-table {
+    width: 100%;
+  }
+
+  
+  * {
+    box-sizing: border-box;
+  }
   

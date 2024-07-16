@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ExpenseService } from '../services/expense.service';
 import { Expense } from '../model/expense.model';
 import { MatTableDataSource } from '@angular/material/table';
-import { DatePipe } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { EditExpenseDialogComponent } from '../dialogs/edit-expense-dialog/edit-expense-dialog.component';
 import { DeleteExpenseDialogComponent } from '../dialogs/delete-expense-dialog/delete-expense-dialog.component';
@@ -11,7 +10,7 @@ import { DeleteExpenseDialogComponent } from '../dialogs/delete-expense-dialog/d
   selector: 'app-show-expense',
   templateUrl: './show-expense.component.html',
   styleUrls: ['./show-expense.component.css'],
-  providers:[DatePipe]
+  
 })
 export class ShowExpenseComponent {
 
@@ -20,7 +19,7 @@ export class ShowExpenseComponent {
   displayedColumns = ['name', 'amount', 'category', 'date', 'payment', 'actions'];
   dataSource = new MatTableDataSource<Expense>([]);
 
-  constructor(private datePipe: DatePipe,
+  constructor(
     private expenseService: ExpenseService,
     private dialog: MatDialog){
 
@@ -32,9 +31,7 @@ export class ShowExpenseComponent {
 
   }
 
-  formatDate(date: Date): string{
-    return this.datePipe.transform(date,'MM/dd/yyyy') || '';
-  }
+
 
   editExpense(expense: Expense){
     const dialogRef = this.dialog.open(EditExpenseDialogComponent,{

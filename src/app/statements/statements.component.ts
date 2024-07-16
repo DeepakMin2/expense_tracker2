@@ -35,9 +35,6 @@ export class StatementsComponent {
     console.log(year + month);
   }
 
-  formatDate(date: Date): string{
-    return this.datePipe.transform(date,'MM/dd/yyyy') || '';
-  }
 
   downloadTransactions(){
     console.log(this.dataSource.data);

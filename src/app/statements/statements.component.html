@@ -10,15 +10,17 @@
                 <mat-panel-title>
                     {{month}}
                 </mat-panel-title>
+                <mat-panel-description>
+                    <div *ngIf="selectedMonth == month && selectedYear == year">
+                        <div class="download-button">
+                            <button mat-icon-button color="primary" (click)="downloadTransactions()">
+                                <mat-icon>sim_card_download</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </mat-panel-description>
             </mat-expansion-panel-header>
-            <div *ngIf="selectedMonth == month && selectedYear == year">
-                <div class="download-button">
-                    <button mat-icon-button color="primary" (click)="downloadTransactions()">
-                        <mat-icon>cloud_download</mat-icon>
-                    </button>
-                </div>
-            </div>
-            <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <mat-table [dataSource]="dataSource" class="mat-elevation-z8" full-width-table>
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef>Name</th>
                     <td mat-cell *matCellDef="let expense">{{expense.name}}</td>
@@ -36,7 +38,7 @@
 
                 <ng-container matColumnDef="date">
                     <th mat-header-cell *matHeaderCellDef>Date</th>
-                    <td mat-cell *matCellDef="let expense">{{formatDate(expense.date)}}</td>
+                    <td mat-cell *matCellDef="let expense">{{expense.date | date: 'MM/dd/yyyy'}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="payment">

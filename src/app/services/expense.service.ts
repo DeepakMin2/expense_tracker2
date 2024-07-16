@@ -51,7 +51,7 @@ export class ExpenseService {
       this.expensesSubject.next([...expenses]);
     }
   }
-
+  
   getExpensesByMonth(year: number, month: string): Expense[] {
     const monthIndex = this.months.indexOf(month);
     return this.expenses.filter(expense=>{

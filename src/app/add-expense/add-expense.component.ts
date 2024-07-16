@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -11,7 +10,6 @@ import { CategoryService } from '../services/category-service.service';
   selector: 'app-add-expense',
   templateUrl: './add-expense.component.html',
   styleUrls: ['./add-expense.component.css'],
-  providers: [DatePipe]
 })
 export class AddExpenseComponent {
  
@@ -23,8 +21,7 @@ export class AddExpenseComponent {
 
   addExpenseForm: FormGroup;
 
-  constructor( private datePipe: DatePipe, 
-    private expenseService: ExpenseService,
+  constructor( private expenseService: ExpenseService,
     private categoryService: CategoryService){
     this.dataSource2.data = expenseService.getExpenses().slice(-5);
     this.categories = categoryService.getCategories();
@@ -74,9 +71,5 @@ export class AddExpenseComponent {
 
   removeCategory(category: string): void {
   this.categoryService.removeCategory(category);
-  }
-
-  formatDate(date: Date): string {
-    return this.datePipe.transform(date,'MM/dd/yyyy') || '';
   }
 }
