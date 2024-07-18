@@ -59,4 +59,6 @@ export class ExpenseService {
       return expenseDate.getFullYear()===year && expenseDate.getMonth()===monthIndex;
     });
   }
+
+  getAllExpensesOfYearByMonth(year: number, month: string){}
 }

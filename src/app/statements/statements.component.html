@@ -11,16 +11,16 @@
                     {{month}}
                 </mat-panel-title>
                 <mat-panel-description>
-                    <div *ngIf="selectedMonth == month && selectedYear == year">
+                    <div>
                         <div class="download-button">
-                            <button mat-icon-button color="primary" (click)="downloadTransactions()">
+                            <button mat-icon-button color="primary" (click)="downloadTransactions(year,month)">
                                 <mat-icon>sim_card_download</mat-icon>
                             </button>
                         </div>
                     </div>
                 </mat-panel-description>
             </mat-expansion-panel-header>
-            <mat-table [dataSource]="dataSource" class="mat-elevation-z8" full-width-table>
+            <mat-table [dataSource]="getDataSource(year,month)" class="mat-elevation-z8" full-width-table>
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef>Name</th>
                     <td mat-cell *matCellDef="let expense">{{expense.name}}</td>
