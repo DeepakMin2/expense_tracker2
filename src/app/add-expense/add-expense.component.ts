@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Expense } from '../model/expense.model';
 import { ExpenseService } from '../services/expense.service';
 import { CategoryService } from '../services/category-service.service';
+import { Category } from '../model/category.model';
 
 @Component({
   selector: 'app-add-expense',
@@ -13,7 +14,7 @@ import { CategoryService } from '../services/category-service.service';
 })
 export class AddExpenseComponent {
  
-  categories:string[] = [];
+  categories:Category[] = [];
 
   displayedColumns: string[] = ['name', 'amount', 'category', 'date', 'payment'];
   dataSource2 = new MatTableDataSource<Expense>([]);
@@ -23,7 +24,9 @@ export class AddExpenseComponent {
 
   constructor( private expenseService: ExpenseService,
     private categoryService: CategoryService){
-    this.dataSource2.data = expenseService.getExpenses().slice(-5);
+    expenseService.getExpenses().subscribe(expenses=>{
+      this.dataSource2.data = expenses.slice(-5);
+    });
     this.categories = categoryService.getCategories();
     
     this.addExpenseForm = new FormGroup({
@@ -45,9 +48,10 @@ export class AddExpenseComponent {
   onAddExpense(){
     if(this.addExpenseForm.valid){
       const newExpense: Expense = {
+        expenseId: 0,
         name: this.addExpenseForm.value.expenseName,
         amount: this.addExpenseForm.value.amount,
-        category: this.addExpenseForm.value.category,
+        categoryDto: this.addExpenseForm.value.category,
         date: this.addExpenseForm.value.date,
         payment: this.addExpenseForm.value.payment,
       }
@@ -63,13 +67,18 @@ export class AddExpenseComponent {
     const input =  event.chipInput.inputElement;
     const value = event.value.trim();
 
-    this.categoryService.addCategory(value);
+    const newCategory: Category = {
+      category: value,
+      id: 0
+    }
+    this.categoryService.addCategory(newCategory);
     if(input){
       input.value = '';
     }
   }
 
-  removeCategory(category: string): void {
+  removeCategory(category: Category): void {
+
   this.categoryService.removeCategory(category);
   }
 }

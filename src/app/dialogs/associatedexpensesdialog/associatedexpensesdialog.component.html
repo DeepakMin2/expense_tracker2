@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>{{data.category.category}} Deletion</h1>
+<div mat-dialog-content>
+    <p>Cannot delete {{data.category.category}} Category because of the following expenses that are associated with this category: </p>
+    <mat-list>
+        <mat-list-item *ngFor="let expense of data.expenses">
+            {{ expense.name }} - {{ expense.amount }} - {{ expense.date }}
+        </mat-list-item>
+    </mat-list>
+    <div mat-dialog-actions>
+        <button mat-button mat-dialog-close (click)="onClose()">Close</button>
+    </div>
+</div>

@@ -14,7 +14,7 @@ import { DeleteExpenseDialogComponent } from '../dialogs/delete-expense-dialog/d
 })
 export class ShowExpenseComponent {
 
-  expenses: Expense[] = [];
+  // expenses: Expense[] = [];
 
   displayedColumns = ['name', 'amount', 'category', 'date', 'payment', 'actions'];
   dataSource = new MatTableDataSource<Expense>([]);
@@ -23,11 +23,16 @@ export class ShowExpenseComponent {
     private expenseService: ExpenseService,
     private dialog: MatDialog){
 
-    this.dataSource.data = this.expenseService.getExpenses();
+    this.expenseService.getExpenses().subscribe(expenses=>{
+      this.dataSource.data = expenses;
+    });
 
     this.expenseService.expenses$.subscribe(expenses=>{
+      // console.log(expenses);
       this.dataSource.data = expenses;
+      // console.log('This is the Data source '+this.dataSource.data);
     })
+
 
   }
 

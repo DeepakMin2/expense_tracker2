@@ -13,8 +13,8 @@
 
         <mat-form-field>
             <mat-label>Category</mat-label>
-            <mat-select formControlName="category">
-                <mat-option *ngFor="let category of categories" [value]="category">{{category}}</mat-option>
+            <mat-select formControlName="categoryDto">
+                <mat-option *ngFor="let category of categories" [value]="category">{{category.category}}</mat-option>
             </mat-select>
         </mat-form-field>
 
