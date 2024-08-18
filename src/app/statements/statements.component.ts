@@ -3,6 +3,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Expense } from '../model/expense.model';
 import { ExpenseService } from '../services/expense.service';
 import { DatePipe } from '@angular/common';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
 
 @Component({
   selector: 'app-statements',
@@ -29,12 +31,6 @@ export class StatementsComponent {
     }
   }
 
-  // onMonthSelect(year: number, month: string){
-  //   this.selectedMonth = month;
-  //   this.selectedYear = year;
-  //   this.dataSource.data = this.expenseService.getExpensesByMonth(year,month);
-  //   console.log(year + month);
-  // }
 
   onMonthSelect(year: number, month: string){
     this.selectedMonth = month;
@@ -54,6 +50,25 @@ export class StatementsComponent {
 
   downloadTransactions(year: number, month: string){
     const key = `${year}-${month}`;
-    console.log(this.dataSources[key].data);
+    const dataSource = this.dataSources[key];
+
+    if(!dataSource){
+      console.log('No data available for the selected month and year.');
+      return;
+    }
+
+    const doc = new jsPDF();
+    autoTable(doc,{
+      head: [['Name', 'Amount', 'Category', 'Date', 'Payment']],
+      body: dataSource.data.map(expense=>[
+        expense.name,
+        expense.amount.toString(),
+        expense.categoryDto.category, 
+        new DatePipe('en-US').transform(expense.date,'MM/dd/yyyy'),
+        expense.payment
+      ] as string[]),
+    });
+
+    doc.save(`${year}_${month}_transaction.pdf`);
   }
 }
