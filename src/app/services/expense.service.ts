@@ -99,9 +99,13 @@ export class ExpenseService {
   
   getExpensesByMonth(year: number, month: string): Expense[] {
     const monthIndex = this.months.indexOf(month);
+    //console.log(`Month Index: ${monthIndex}`);
     return this.expenses.filter(expense=>{
       const expenseDate = new Date(expense.date);
-      return expenseDate.getFullYear()===year && expenseDate.getMonth()===monthIndex;
+      const expenseYear = expenseDate.getUTCFullYear();
+      const expenseMonth = expenseDate.getUTCMonth(); 
+      // console.log(`Year ${expenseDate.getFullYear()} and Month ${expenseDate.getMonth()}`);
+      return expenseYear===year && expenseMonth===monthIndex;
     });
     // return [];
   }

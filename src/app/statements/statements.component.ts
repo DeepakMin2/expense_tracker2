@@ -5,6 +5,7 @@ import { ExpenseService } from '../services/expense.service';
 import { DatePipe } from '@angular/common';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+import { User } from '../model/user.model';
 
 @Component({
   selector: 'app-statements',
@@ -17,6 +18,13 @@ export class StatementsComponent {
     'July', 'August', 'September', 'October', 'November', 'December'];
   selectedMonth: string = '';
   selectedYear: number = 0;
+
+  user:User = {
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'john.doe@example.com',
+    userId: '12'
+  };
 
   displayedColumns = ['name', 'amount', 'category', 'date', 'payment'];
   //dataSource = new MatTableDataSource<Expense>([]);
@@ -58,7 +66,14 @@ export class StatementsComponent {
     }
 
     const doc = new jsPDF();
+    doc.setFontSize(12);
+    doc.text(`User: ${this.user.firstName} ${this.user.lastName}`,10,10);
+    doc.text(`Email: ${this.user.email}`,10,20);
+    doc.text(`Statement for ${month} ${year}`, 10,30);
+    doc.setFontSize(40);
+
     autoTable(doc,{
+      startY: 40,
       head: [['Name', 'Amount', 'Category', 'Date', 'Payment']],
       body: dataSource.data.map(expense=>[
         expense.name,
