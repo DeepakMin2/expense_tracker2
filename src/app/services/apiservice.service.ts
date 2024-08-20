@@ -3,18 +3,24 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Expense } from '../model/expense.model';
 import { Category } from '../model/category.model';
+import { User } from '../model/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  private email = 'katie.miller@example.com';
+  private user: User ={
+    userId: '21',
+    firstName: 'Katie',
+    lastName: 'Miller',
+    email: 'katie.miller@example.com'
+  } 
   private apiUrl = 'http://localhost:8080/api';
 
   constructor(private http: HttpClient) { }
 
   fetchCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>(`${this.apiUrl}/categories?email=${this.email}`);
+    return this.http.get<Category[]>(`${this.apiUrl}/categories?email=${this.user.email}`);
   }
 
   addCategory(category: Category):Observable<Category> {
@@ -22,7 +28,7 @@ export class ApiService {
       'Content-Type': 'application/json'
     });
     //console.log('Body of Request' + category.category);
-    return this.http.post<Category>(`${this.apiUrl}/categories?email=${this.email}`,category,{headers})
+    return this.http.post<Category>(`${this.apiUrl}/categories?email=${this.user.email}`,category,{headers})
     .pipe(
       map(result=>{
         console.log('API object ID '+result.id);
@@ -36,7 +42,7 @@ export class ApiService {
   }
 
   removeCategory(category: Category): Observable<void> {
-    return this.http.request<void>('DELETE',`${this.apiUrl}/categories?email=${this.email}`,{
+    return this.http.request<void>('DELETE',`${this.apiUrl}/categories?email=${this.user.email}`,{
       body: category,
       headers: {
         'Content-Type': 'application/json'
@@ -51,14 +57,14 @@ export class ApiService {
 /*Expensese API Calls*/
   
 fetchExpenses():Observable<Expense[]>{
-    const expenses = this.http.get<Expense[]>(`${this.apiUrl}/expenses?email=${this.email}`);
+    const expenses = this.http.get<Expense[]>(`${this.apiUrl}/expenses?email=${this.user.email}`);
     // console.log('this is the Http Response' + JSON.stringify(expenses,null,2));
     // console.log(expenses); 
     return expenses;
   }
 
   addExpense(expense: Expense):Observable<Expense> {
-    return this.http.post<Expense>(`${this.apiUrl}/expenses?email=${this.email}`,expense,{headers: {
+    return this.http.post<Expense>(`${this.apiUrl}/expenses?email=${this.user.email}`,expense,{headers: {
       'Content-Type': 'application/json'
     }}).pipe(
       map(result=>{
@@ -72,7 +78,7 @@ fetchExpenses():Observable<Expense[]>{
   }
 
   updateExpense(newExpense: Expense):Observable<Expense>{
-    return this.http.put<Expense>(`${this.apiUrl}/expenses?email=${this.email}`,newExpense,{headers: {
+    return this.http.put<Expense>(`${this.apiUrl}/expenses?email=${this.user.email}`,newExpense,{headers: {
       'Content-Type': 'application/json'
     }}).pipe(
       map(result=>{
@@ -86,7 +92,7 @@ fetchExpenses():Observable<Expense[]>{
   }
   
   deleteExpense(expense: Expense):Observable<void>{
-    return this.http.request<void>('DELETE',`${this.apiUrl}/expenses?email=${this.email}`,{
+    return this.http.request<void>('DELETE',`${this.apiUrl}/expenses?email=${this.user.email}`,{
       body: expense,
       headers: {
         'Content-Type': 'application/json'
