@@ -9,6 +9,7 @@ import { User } from '../model/user.model';
   providedIn: 'root'
 })
 export class ApiService {
+
   private user: User ={
     userId: '21',
     firstName: 'Katie',
@@ -19,6 +20,11 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
+  getUser(): User {
+    return this.user;
+  }
+
+  /*Categories API Calls*/
   fetchCategories(): Observable<Category[]> {
     return this.http.get<Category[]>(`${this.apiUrl}/categories?email=${this.user.email}`);
   }

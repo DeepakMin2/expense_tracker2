@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,11 @@ public class ExpenseController {
 	ExpenseService expenseService;
 	
 	@GetMapping
-	public ResponseEntity<List<ExpenseDto>> getAllExpensesOfUser(@RequestParam String email){
+	public ResponseEntity<List<ExpenseDto>> getAllExpensesOfUser(Authentication authentication){
+		
+		String email = authentication.getName();
+		
+		//System.out.println("*******"+ email+ "***********");
 		
 		List<ExpenseDto> expenses = expenseService.getAllExpensesOfUser(email);
 		
@@ -35,7 +40,12 @@ public class ExpenseController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ExpenseDto> saveExpenseOfUser(@RequestParam String email, @RequestBody ExpenseDto expenseDto) {
+	public ResponseEntity<ExpenseDto> saveExpenseOfUser(Authentication authentication, @RequestBody ExpenseDto expenseDto) {
+		
+		String email = authentication.getName();
+		
+		System.out.println("******"+ email+"*************");
+		
 		ExpenseDto savedExpense = expenseService.saveExpenseOfUser(email,expenseDto);
 		
 		if(savedExpense==null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

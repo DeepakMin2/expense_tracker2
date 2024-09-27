@@ -1,28 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../model/user.model';
+import { ApiService } from './apiservice.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  user1: User = {
-    userId: 'abc',
-    firstName: 'firstName1',
-    lastName: 'lastName1',
-    email: 'email1@abc.com'
-  }
+  user: User = this.apiService.getUser();
 
-  constructor() { }
+  constructor(private apiService: ApiService) { }
 
   getProfile(): User{
-    return this.user1; 
+    return this.user; 
   }
 
   updateProfile(user: User){
-    this.user1.firstName = user.firstName;
-    this.user1.lastName = user.lastName;
-    this.user1.email = user.email;
+    this.user.firstName = user.firstName;
+    this.user.lastName = user.lastName;
+    this.user.email = user.email;
   }
 }
