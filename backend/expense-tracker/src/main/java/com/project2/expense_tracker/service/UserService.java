@@ -1,6 +1,7 @@
 package com.project2.expense_tracker.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.project2.expense_tracker.model.User;
@@ -14,6 +15,9 @@ public class UserService {
 	
 	@Autowired
 	UserRepo userRepo;
+	
+	@Autowired
+    private PasswordEncoder passwordEncoder;
 	
 	private UserDto convertToDto(User user) {
 		UserDto userDto = new UserDto();
@@ -60,7 +64,7 @@ public class UserService {
 		if(userCred.getEmail()!=null && userCred.getPassword()!=null) {
 			User user = userRepo.getReferenceById(userCred.getEmail());
 			
-			if(user!=null && user.getPassword().equals(userCred.getPassword())) {
+			if(user!=null && passwordEncoder.matches(userCred.getPassword(), user.getPassword())) {
 				UserDto userDto = new UserDto();
 				userDto.setFirstName(user.getFirstName());
 				userDto.setLastName(user.getEmail());

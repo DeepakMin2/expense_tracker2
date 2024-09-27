@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AuthService } from '../auth/auth.service';
+import { SignUpRequest } from '../auth/auth.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +14,7 @@ export class SignupComponent {
   signupForm: FormGroup;
  
 
-  constructor(public fb: FormBuilder){
+  constructor(public fb: FormBuilder, private authService: AuthService, private router: Router){
     this.signupForm = this.fb.group({
       firstName:['', [Validators.required]],
       lastName:['', [Validators.required]],
@@ -30,8 +33,6 @@ export class SignupComponent {
 
     const password = group.get('password')?.value;
     const password2 = group.get('password2')?.value;
-
-    console.log(password + '***' + password2)
     if(password!=password2){
       return {passwordMismatch: true}
     }
@@ -54,7 +55,21 @@ export class SignupComponent {
 
   onSubmit() {
     if (this.signupForm.valid) {
-      console.log(this.signupForm.value);
+      const signupRequest: SignUpRequest = {
+        firstName: this.signupForm.value.firstName,
+        lastName: this.signupForm.value.lastName,
+        email: this.signupForm.value.email,
+        password: this.signupForm.value.password,
+        confirmPassword: this.signupForm.value.password2
+      }
+
+      console.log('sending signup request');
+      this.authService.signUp(signupRequest).subscribe(
+        {next: (response)=> {
+          console.log('Sign up Success'+ response);
+          this.router.navigate(['/login']);
+        },}
+      );
     }
   }
 }
