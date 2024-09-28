@@ -1,7 +1,10 @@
+import { Category } from "./category.model";
+
 export interface Expense{
+    expenseId: number,
     name: string,
     amount: number,
-    category: string,
+    categoryDto: Category,
     date: Date,
     payment: string
   }

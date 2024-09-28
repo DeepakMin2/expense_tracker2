@@ -7,13 +7,15 @@
         <button mat-menu-item routerLink="/showExpense" >Show Expenses</button>
         <button mat-menu-item routerLink="/statements" >Statements</button>
         <button mat-menu-item routerLink="/profile" >Profile</button>
+        <button mat-menu-item (click)="onLogout()">Logout</button>
     </mat-menu>
     <span><a mat-button class="title" routerLink="/home">Expense Tracker</a></span>
     <span class = "spacer"></span>
     <button mat-button routerLink="/login" *ngIf ="!isLoggedIn()">Login</button>
     <button mat-button *ngIf ="!isLoggedIn()" routerLink="/signup" >Sign up</button>
-        <button mat-button *ngIf = "isLoggedIn()" routerLink="/addExpense" >Add Expenses</button>
-        <button mat-button *ngIf = "isLoggedIn()" routerLink="/showExpense" >Show Expenses</button>
-        <button mat-button *ngIf = "isLoggedIn()"routerLink="/statements" >Statements</button>
-        <button mat-button *ngIf = "isLoggedIn()" routerLink="/profile" >Profile</button>
+    <button mat-button *ngIf = "isLoggedIn()" routerLink="/addExpense" >Add Expenses</button>
+    <button mat-button *ngIf = "isLoggedIn()" routerLink="/showExpense" >Show Expenses</button>
+    <button mat-button *ngIf = "isLoggedIn()"routerLink="/statements" >Statements</button>
+    <button mat-button *ngIf = "isLoggedIn()" routerLink="/profile" >Profile</button>
+    <button mat-button *ngIf = "isLoggedIn()" (click)="onLogout()">Logout</button>
 </mat-toolbar>

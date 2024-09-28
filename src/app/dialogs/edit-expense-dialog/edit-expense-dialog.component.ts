@@ -1,6 +1,7 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Category } from 'src/app/model/category.model';
 import { Expense } from 'src/app/model/expense.model';
 import { CategoryService } from 'src/app/services/category-service.service';
 
@@ -9,10 +10,10 @@ import { CategoryService } from 'src/app/services/category-service.service';
   templateUrl: './edit-expense-dialog.component.html',
   styleUrls: ['./edit-expense-dialog.component.css']
 })
-export class EditExpenseDialogComponent {
+export class EditExpenseDialogComponent implements OnInit{
 
   editExpenseForm: FormGroup;
-  categories:string[]=[];
+  categories:Category[]=[];
   
 
   constructor(
@@ -23,14 +24,23 @@ export class EditExpenseDialogComponent {
     this.editExpenseForm = new FormGroup({
       name: new FormControl(dialogData.name,[Validators.required]),
       amount: new FormControl(dialogData.amount,[Validators.required]),
-      category: new FormControl(dialogData.category,[Validators.required]),
+      categoryDto: new FormControl(dialogData.categoryDto,[Validators.required]),
       date: new FormControl(dialogData.date,[Validators.required]),
       payment: new FormControl(dialogData.payment,[Validators.required])
     });
 
-    this.categoryService.category$.subscribe(categories=>{
+    
+  }
+  ngOnInit(): void {
+    this.categoryService.getCategories$().subscribe(categories => {
       this.categories = categories;
     });
+    if(this.dialogData.categoryDto){
+      const seletcedCategory = this.categories.find(category=> category.id==this.dialogData.categoryDto.id);
+      if(seletcedCategory){
+        this.editExpenseForm.get('CategoryDto')?.setValue(seletcedCategory);
+      }
+    }
   }
 
   onSave(){

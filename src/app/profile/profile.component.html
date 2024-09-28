@@ -1,1 +1,44 @@
-<p>profile is working!</p>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Profile</mat-card-title>
+        <button mat-icon-button (click)="editMode = !editMode">
+            <mat-icon>{{editMode ? 'close': 'edit'}}</mat-icon>
+        </button>
+    </mat-card-header>
+    <mat-card-content>
+        <form *ngIf="editMode" [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="fill">
+                <mat-label>FirstName</mat-label>
+                <input matInput formControlName="firstName">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>LastNamr</mat-label>
+                <input matInput formControlName="lastName">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="password">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Confirm Password</mat-label>
+                <input matInput formControlName="confirmPassword">
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" type="submit">Save</button>
+        </form>
+        <div *ngIf="!editMode">
+            <p><strong>First Name:</strong> {{ user.firstName }}</p>
+            <p><strong>Last Name:</strong> {{ user.lastName }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Password:</strong> ••••••••</p>
+        </div>
+    </mat-card-content>
+</mat-card>

@@ -17,8 +17,10 @@ import {MatDialogModule} from '@angular/material/dialog'
 import {MatDatepickerModule} from '@angular/material/datepicker'
 import { MatNativeDateModule } from '@angular/material/core'
 import {MatSelectModule} from '@angular/material/select'
-import { MatChipsModule } from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips'
 import {MatTableModule} from '@angular/material/table'
+import {MatExpansionModule} from '@angular/material/expansion'
+import {MatListModule} from '@angular/material/list'
 
 import { LoginComponent } from './login/login.component';
 import { NavComponent } from './nav/nav.component';
@@ -32,6 +34,8 @@ import { FooterComponent } from './footer/footer.component';
 import { DialogComponent } from './dialog/dialog.component';
 import { EditExpenseDialogComponent } from './dialogs/edit-expense-dialog/edit-expense-dialog.component';
 import { DeleteExpenseDialogComponent } from './dialogs/delete-expense-dialog/delete-expense-dialog.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AssociatedexpensesdialogComponent } from './dialogs/associatedexpensesdialog/associatedexpensesdialog.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +52,7 @@ import { DeleteExpenseDialogComponent } from './dialogs/delete-expense-dialog/de
     DialogComponent,
     EditExpenseDialogComponent,
     DeleteExpenseDialogComponent,
+    AssociatedexpensesdialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +71,10 @@ import { DeleteExpenseDialogComponent } from './dialogs/delete-expense-dialog/de
     MatSelectModule,
     MatNativeDateModule,
     MatChipsModule,
-    MatTableModule
+    MatTableModule,
+    MatExpansionModule,
+    HttpClientModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
