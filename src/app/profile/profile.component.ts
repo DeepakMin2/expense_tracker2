@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { User } from '../model/user.model';
+import { UserProfile } from '../auth/auth.model';
 
 @Component({
   selector: 'app-profile',
@@ -12,7 +13,7 @@ export class ProfileComponent {
 
   profileForm: FormGroup;
   editMode = false;
-  user:User;
+  user:UserProfile;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService) {
     this.user=this.userService.getProfile();

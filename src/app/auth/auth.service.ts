@@ -17,11 +17,7 @@ export class AuthService {
       email: email,
       password: password
     }
-    return this.http.post<any>(`${this.apiUrl}/login`,loginRequest).pipe(
-      tap(response =>{
-        sessionStorage.setItem('token', response.token);
-      })
-    )
+    return this.http.post<any>(`${this.apiUrl}/login`,loginRequest);
   }
   
   signUp(signUpRequest: SignUpRequest): Observable<AuthResponse>{
@@ -40,6 +36,7 @@ export class AuthService {
 
   
   isLoggedIn(): boolean{
+    console.log('isLoggedIn getting token: ', sessionStorage.getItem('token'));
     return !!sessionStorage.getItem('token');
   }
 

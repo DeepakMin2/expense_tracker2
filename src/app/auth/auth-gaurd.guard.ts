@@ -8,7 +8,8 @@ export const authGaurd: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const token = sessionStorage.getItem('token');
 
-  if(authService.isLoggedIn()){
+  if(token && authService.isLoggedIn()){
+
     console.log('Token is Generated '+ token);
     return true;
   }
