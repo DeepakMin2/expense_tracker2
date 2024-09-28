@@ -4,24 +4,34 @@ import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Expense } from '../model/expense.model';
 import { Category } from '../model/category.model';
 import { User } from '../model/user.model';
+import { UserProfile } from '../auth/auth.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  private user: User ={
-    userId: '21',
+  private user: UserProfile ={
     firstName: 'Katie',
     lastName: 'Miller',
-    email: 'katie.miller@example.com'
+    email: 'katie.miller@example.com',
+    password: '',
+    confirmPassword: ''
   } 
   private apiUrl = 'http://localhost:8080/api';
 
   constructor(private http: HttpClient) { }
 
-  getUser(): User {
-    return this.user;
+  private token = sessionStorage.getItem('token');
+  private headers = new HttpHeaders({
+    'Authorization': `Bearer ${this.token}`
+  });
+
+
+  getUserProfile(): Observable<UserProfile> {
+    
+    
+    return this.http.get<UserProfile>(`${this.apiUrl}/user/profile`,{headers: this.headers});
   }
 
   /*Categories API Calls*/
@@ -32,6 +42,7 @@ export class ApiService {
   addCategory(category: Category):Observable<Category> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json'
+      
     });
     //console.log('Body of Request' + category.category);
     return this.http.post<Category>(`${this.apiUrl}/categories?email=${this.user.email}`,category,{headers})

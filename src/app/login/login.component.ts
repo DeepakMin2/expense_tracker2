@@ -21,7 +21,7 @@ export class LoginComponent {
       this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(
         {next:(response)=>{
           console.log('Login Succesful');
-          sessionStorage.setItem('token', response.token);
+          sessionStorage.setItem('token', response.jwt);
           this.router.navigate(['/home'])
         }, error: (error)=>{
           console.error('Error logging in', error);
