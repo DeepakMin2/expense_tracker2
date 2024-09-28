@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -71,7 +72,11 @@ public class UserController {
 	}
 	
 	@GetMapping("/profile")
-	public ResponseEntity<UserProfileDto> getFullProfileOfUser(@RequestParam String email){
+	public ResponseEntity<UserProfileDto> getFullProfileOfUser(Authentication authentication){
+		
+		String email = authentication.getName();
+		
+		System.out.println("******** Email for Profile Password "+ email+" ****************");
 		
 		UserProfileDto userProfile = userService.getFullProfileOfUser(email);
 		
