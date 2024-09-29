@@ -55,14 +55,18 @@ public class ExpenseController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<ExpenseDto> updateExpenseOfUser(@RequestParam String email, @RequestBody ExpenseDto expenseDto){
+	public ResponseEntity<ExpenseDto> updateExpenseOfUser(Authentication authentication, @RequestBody ExpenseDto expenseDto){
+		
+		String email = authentication.getName();
 		
 		ExpenseDto updatedExpense = expenseService.updateExpenseOfUser(email,expenseDto);
 		return ResponseEntity.ok(updatedExpense);
 	}
 	
 	@DeleteMapping
-	public void deleteExpenseOfUser(@RequestParam String email, @RequestBody ExpenseDto expenseDto) {
+	public void deleteExpenseOfUser(Authentication authentication, @RequestBody ExpenseDto expenseDto) {
+		
+		String email = authentication.getName();
 		expenseService.deleteExpenseOfUser(email,expenseDto);
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,8 +25,9 @@ public class CategoryController {
 	CategoryService categoryService;
 	
 	@GetMapping
-	public ResponseEntity<List<CategoryDto>> getAllCategoriesOfUser(@RequestParam String email){
+	public ResponseEntity<List<CategoryDto>> getAllCategoriesOfUser(Authentication authentication){
 		
+		String email = authentication.getName();
 		//System.out.println("*******Request Received**********");
 		List<CategoryDto> categoriesDto =  categoryService.getAllCategoriesOfUser(email);
 		
@@ -36,7 +38,9 @@ public class CategoryController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<CategoryDto> addCategoryOfUser(@RequestParam String email, @RequestBody CategoryDto categoryDto){
+	public ResponseEntity<CategoryDto> addCategoryOfUser(Authentication authentication, @RequestBody CategoryDto categoryDto){
+		
+		String email = authentication.getName();
 		
 		CategoryDto newCategoryDto = categoryService.addCategoryOfUser(email,categoryDto);
 		
@@ -46,8 +50,11 @@ public class CategoryController {
 	}
 	
 	@DeleteMapping
-	public void deleteCategoryOfUser(@RequestParam String email, @RequestBody CategoryDto categoryDto){
+	public void deleteCategoryOfUser(Authentication authentication, @RequestBody CategoryDto categoryDto){
 		//System.out.println("*******Request Received**********");
+		
+		String email = authentication.getName();
+		
 		categoryService.deleteCategoryOfUser(email,categoryDto);
 	}
 }
